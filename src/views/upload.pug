@@ -1,0 +1,9 @@
+extends base
+
+block content
+    form(method="POST", action="/videos/upload")  
+        input(name="title", required, type="text")
+        input(value="Upload Video", type="submit")
+        
+
+//- action="/videos/upload" = default
