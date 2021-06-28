@@ -1,21 +1,19 @@
 import express from "express"; // express에서 express가져오기
 import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
 
 //first make a express application
 const app = express();
 const PORT = 4000;
 
 const logger = morgan("dev");
-
-const home = (req, res) => {
-    return res.send("I still love you");
-};
-const login = (req, res) => {
-    return res.send("login here");
-};
-app.use(logger);
-app.get("/", home);
-app.get("/login", login);
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
 
 const handleListening = () =>
     console.log(`Server listending on port http://localhost:${PORT}`);
