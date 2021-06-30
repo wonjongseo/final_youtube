@@ -4,4 +4,6 @@ block content
     h1=video.title
     form(method="POST")
         input(name="title", placeholder="Video Title",value=video.title, required)
+        input(name="description", required, type="text",placeholder="description", minlength=10, value=video.description)
+        input(name="hashtags", required, type="text",placeholder="hashtags",value=video.hashtags.join())
         input(type="submit",value="Save")

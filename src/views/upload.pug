@@ -1,8 +1,12 @@
 extends base
 
 block content
+    if errerMassage
+        h1=errerMassage
     form(method="POST", action="/videos/upload")  
-        input(name="title", required, type="text")
+        input(name="title", required, type="text",placeholder="title",maxlength=50)
+        input(name="description", required, type="text",placeholder="description", minlength=10)
+        input(name="hashtags", required, type="text",placeholder="hashtags")
         input(value="Upload Video", type="submit")
         
 
