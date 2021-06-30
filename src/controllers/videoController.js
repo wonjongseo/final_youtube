@@ -4,7 +4,7 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
     try {
-        const videos = await Video.find({});
+        const videos = await Video.find({}).sort({createAt: "desc"});
         return res.render("home", {titlePage: "Home", videos});
     } catch (error) {
         return res.render("server-error", {error});
@@ -69,5 +69,19 @@ export const deleteVideo = async (req, res) => {
 
     return res.redirect("/");
 };
-export const search = (req, res) => res.send("Search");
+
+export const search = async (req, res) => {
+    const {keyword} = req.query;
+    let videos = [];
+
+    if (keyword) {
+        videos = await Video.find({
+            title: {
+                $regex: new RegExp(`^${keyword}`, "i"),
+            },
+        });
+    }
+
+    return res.render("search", {titlePage: "Search", videos});
+};
 export const remove = (req, res) => res.send("Delete Video");
