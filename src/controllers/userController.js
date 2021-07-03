@@ -157,6 +157,7 @@ export const postEdit = async (req, res) => {
         const exists = await User.exists({username: changeUsername});
         if (exists) {
             return res.status(400).render("edit", {
+                titlePage: "Edit",
                 errorMessage: "This username is used",
             });
         }
@@ -165,6 +166,7 @@ export const postEdit = async (req, res) => {
         const exists = await User.exists({email: changedEmail});
         if (exists) {
             return res.status(400).render("edit", {
+                titlePage: "Edit",
                 errorMessage: "This email is used",
             });
         }
@@ -185,5 +187,38 @@ export const postEdit = async (req, res) => {
 };
 export const getEdit = (req, res) => {
     return res.render("edit", {titlePage: "Edit"});
+};
+
+export const getChangePassword = (req, res) => {
+    return res.render("user/change-password");
+};
+export const postChangePassword = async (req, res) => {
+    const {
+        session: {
+            user: {_id},
+        },
+        body: {oldPassword, newPassword, newPasswordComfirm},
+    } = req;
+    const user = await User.findById(_id);
+    const ok = await bcrypt.compare(oldPassword, user.password);
+
+    if (!ok) {
+        return res.status(400).render("user/change-password", {
+            titlePage: "Change Password",
+            errorMessage: "The Old Password is incorrect.",
+        });
+    }
+    if (newPassword !== newPasswordComfirm) {
+        return res.status(400).render("user/change-password", {
+            titlePage: "Change Password",
+            errorMessage: "The Password do not match.",
+        });
+    }
+
+    user.password = newPassword; // change password in mongodb
+
+    await user.save();
+
+    return res.redirect("/users/logout");
 };
 export const remove = (req, res) => res.send("Remove");
