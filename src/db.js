@@ -6,7 +6,7 @@ mongoose.connect(process.env.DB_URL, {
     useFindAndModify: false,
     createIndexes: true,
 });
-
+mongoose.set("useCreateIndex", true);
 const db = mongoose.connection;
 
 const handleError = (error) => console.log("DB Error" + error);

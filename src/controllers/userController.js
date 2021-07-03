@@ -143,5 +143,47 @@ export const logout = (req, res) => {
     return res.redirect("/");
 };
 export const see = (req, res) => res.send("See user");
-export const edit = (req, res) => res.send("Edit");
+
+export const postEdit = async (req, res) => {
+    const {
+        session: {
+            user: {_id},
+            user: {username: currentUsername, email: currentEmail},
+        },
+        body: {name, email: changedEmail, location, username: changeUsername},
+    } = req;
+
+    if (currentUsername !== changeUsername) {
+        const exists = await User.exists({username: changeUsername});
+        if (exists) {
+            return res.status(400).render("edit", {
+                errorMessage: "This username is used",
+            });
+        }
+    }
+    if (currentEmail !== changedEmail) {
+        const exists = await User.exists({email: changedEmail});
+        if (exists) {
+            return res.status(400).render("edit", {
+                errorMessage: "This email is used",
+            });
+        }
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+        _id,
+        {
+            name,
+            email: changedEmail,
+            location,
+            username: changeUsername,
+        },
+        {new: true}
+    );
+    req.session.user = updatedUser;
+
+    return res.redirect("edit");
+};
+export const getEdit = (req, res) => {
+    return res.render("edit", {titlePage: "Edit"});
+};
 export const remove = (req, res) => res.send("Remove");
