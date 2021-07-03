@@ -3,7 +3,9 @@ extends base
 block content
     if errerMassage
         h1=errerMassage
-    form(method="POST", action="/videos/upload")  
+    form(method="POST", action="/videos/upload", enctype="multipart/form-data")
+        label(for="vidoe") video
+        input(type="file", accept="video/*", name="vidoe", id="video", required)
         input(name="title", required, type="text",placeholder="title",maxlength=50)
         input(name="description", required, type="text",placeholder="description", minlength=10)
         input(name="hashtags", required, type="text",placeholder="hashtags")

@@ -147,10 +147,11 @@ export const see = (req, res) => res.send("See user");
 export const postEdit = async (req, res) => {
     const {
         session: {
-            user: {_id},
+            user: {_id, avatarUrl},
             user: {username: currentUsername, email: currentEmail},
         },
         body: {name, email: changedEmail, location, username: changeUsername},
+        file,
     } = req;
 
     if (currentUsername !== changeUsername) {
@@ -174,6 +175,7 @@ export const postEdit = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
         _id,
         {
+            avatarUrl: file ? file.path : avatarUrl,
             name,
             email: changedEmail,
             location,

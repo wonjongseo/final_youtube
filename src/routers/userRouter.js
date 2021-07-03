@@ -10,7 +10,11 @@ import {
     see,
     startGithubLogin,
 } from "../controllers/userController";
-import {protectorMiddleware, pulbicOnlyMiddleware} from "../models/middleware";
+import {
+    avatorUpload,
+    protectorMiddleware,
+    pulbicOnlyMiddleware,
+} from "../models/middleware";
 const userRouter = express.Router();
 
 userRouter.get("/github/start", pulbicOnlyMiddleware, startGithubLogin);
@@ -20,7 +24,11 @@ userRouter
     .route("/change-password")
     .get(getChangePassword)
     .post(postChangePassword);
-userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRouter
+    .route("/edit")
+    .all(protectorMiddleware)
+    .get(getEdit)
+    .post(avatorUpload.single("avator"), postEdit);
 userRouter.get("/remove", remove);
 userRouter.get(":id", see);
 
