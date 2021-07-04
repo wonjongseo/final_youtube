@@ -1,35 +1,37 @@
 import express from "express";
 import {
-    finishGithubLogin,
-    getChangePassword,
-    getEdit,
-    logout,
-    postChangePassword,
-    postEdit,
-    remove,
-    see,
-    startGithubLogin,
+  getEdit,
+  postEdit,
+  logout,
+  see,
+  startGithubLogin,
+  finishGithubLogin,
+  getChangePassword,
+  postChangePassword,
 } from "../controllers/userController";
 import {
-    avatorUpload,
-    protectorMiddleware,
-    pulbicOnlyMiddleware,
-} from "../models/middleware";
+  protectorMiddleware,
+  publicOnlyMiddleware,
+  avatarUpload,
+} from "../middlewares";
+
 const userRouter = express.Router();
 
-userRouter.get("/github/start", pulbicOnlyMiddleware, startGithubLogin);
-userRouter.get("/github/finish", pulbicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/logout", protectorMiddleware, logout);
 userRouter
-    .route("/change-password")
-    .get(getChangePassword)
-    .post(postChangePassword);
+  .route("/edit")
+  .all(protectorMiddleware)
+  .get(getEdit)
+  .post(avatarUpload.single("avatar"), postEdit);
 userRouter
-    .route("/edit")
-    .all(protectorMiddleware)
-    .get(getEdit)
-    .post(avatorUpload.single("avator"), postEdit);
-userRouter.get("/remove", remove);
-userRouter.get(":id", see);
+  .route("/change-password")
+  .all(protectorMiddleware)
+  .get(getChangePassword)
+  .post(postChangePassword);
+
+userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
+userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
+
+userRouter.get("/:id", see);
 
 export default userRouter;
