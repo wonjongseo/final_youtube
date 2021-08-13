@@ -1,25 +1,35 @@
+// ############################################
+
+const videoContainer = document.getElementById("videoContainer");
 const video = document.querySelector("video");
+
 const playBtn = document.getElementById("play");
+
 const muteBtn = document.getElementById("mute");
 const volumnRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
+
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
-const videoContainer = document.getElementById("videoContainer");
+
 const fullscreenBtn = document.getElementById("fullScreen");
 
+//변수 ############################################
+
 const VALUMN = "valumn";
+let globalValumn = 0.5;
+
+// ############################################
+
 const userValumn = localStorage.getItem(VALUMN);
 
-let volumeValue = 0.5;
 if (userValumn != null) {
-    volumeValue = userValumn;
+    globalValumn = userValumn;
 }
-video.volume = volumeValue;
-volumnRange.value = volumeValue;
+video.volume = globalValumn;
+volumnRange.value = globalValumn;
 
-const formatTile = (second) =>
-    new Date(second * 1000).toISOString().substr(14, 5);
+// 플레이 버튼 이벤트
 const handlePlayClick = () => {
     if (video.paused) {
         video.play();
@@ -28,6 +38,8 @@ const handlePlayClick = () => {
     }
     playBtn.innerText = video.paused ? "Play" : "Pause";
 };
+
+// 음속어  버튼 이벤트
 const handleMuteClick = () => {
     if (video.muted) {
         video.muted = false;
@@ -35,8 +47,10 @@ const handleMuteClick = () => {
         video.muted = true;
     }
     muteBtn.innerHTML = video.muted ? "Unmute" : "Mute";
-    volumnRange.value = video.muted ? 0 : volumeValue;
+    volumnRange.value = video.muted ? 0 : globalValumn;
 };
+
+//사운드 레인지 변경 이벤트
 const handleChangeRange = (event) => {
     const {
         target: {value},
@@ -45,18 +59,22 @@ const handleChangeRange = (event) => {
         video.muted = false;
         muteBtn.innerText = "Mute";
     }
-    volumeValue = value;
+    globalValumn = value;
     video.volume = value;
-    localStorage.setItem(VALUMN, volumeValue);
+    localStorage.setItem(VALUMN, globalValumn);
 };
 
+const formatTime = (second) =>
+    new Date(second * 1000).toISOString().substr(14, 5);
+
 const handleLoadedMetadata = () => {
-    totalTime.innerText = formatTile(Math.floor(video.duration));
+    // 비디오 전체 시간 계산
+    totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
 };
 
 const hanldTimeUpdate = () => {
-    currentTime.innerText = formatTile(Math.floor(video.currentTime));
+    currentTime.innerText = formatTime(Math.floor(video.currentTime));
 };
 
 const handleTimelineChagne = (event) => {
@@ -79,10 +97,13 @@ const handleFullScreen = () => {
     }
 };
 playBtn.addEventListener("click", handlePlayClick);
+
 muteBtn.addEventListener("click", handleMuteClick);
 volumnRange.addEventListener("input", handleChangeRange);
+
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", hanldTimeUpdate);
+
 timeline.addEventListener("input", handleTimelineChagne);
 
 fullscreenBtn.addEventListener("click", handleFullScreen);

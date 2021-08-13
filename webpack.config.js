@@ -16,7 +16,9 @@ module.exports = {
     ],
     output: {
         filename: "js/[name].js",
+        //  name.js 는 엔트리포인트의 이름대로 파일을 만들어줌
         path: path.resolve(__dirname, "assets"),
+        // ---/final_youtube/assets
         clean: true,
     },
 
