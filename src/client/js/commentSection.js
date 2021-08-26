@@ -3,11 +3,11 @@ import {async} from "regenerator-runtime";
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const video__comment = document.querySelector(".video__comments");
-console.log(video__comment);
 const delBtn = video__comment.querySelectorAll("button");
-console.log(delBtn);
-const addComment = (text, commentId) => {
+
+const addComment = (text, commentId, name) => {
     const commentContainer = document.querySelector(".video__comments ul");
+    const div = document.createElement("div");
     const li = document.createElement("li");
     li.dataset.id = commentId;
     li.classList = "video__comment";
@@ -17,28 +17,41 @@ const addComment = (text, commentId) => {
     const span2 = document.createElement("button");
     span2.id = "delBtn";
     span2.innerText = "❌";
-    span.innerHTML = ` ${text}`;
+    span2.classList = "del__btn";
+    span.innerHTML = `   ${name} :  ${text}`;
+    div.appendChild(i);
+    div.appendChild(span);
 
-    li.appendChild(i);
-    li.appendChild(span);
+    li.appendChild(div);
     li.appendChild(span2);
     commentContainer.prepend(li);
+    span2.addEventListener("click", async () => {
+        const deleteReponse = await deleteComment(commentId);
+        if (deleteReponse.status === 200) {
+            li.remove();
+        }
+    });
 };
 
-// [].forEach.call(delBtn, function (col) {
-//     col.addEventListener("click", (event) => {
-//         const {path} = event;
-//         console.log(path[1].dataset.id);
-//     });
-// });
+const deleteComment = async (id) => {
+    return fetch(`/api/videos/${id}/comment`, {
+        method: "DELETE",
+    });
+};
 delBtn.forEach((item) => {
-    item.addEventListener("click", async () => {
+    item.addEventListener("click", async (event) => {
         const {path} = event;
         const id = path[1].dataset.id;
+        console.log(`path:${path}`);
+        console.log(path[1]);
+        // const deleteReponse = await fetch(`/api/videos/${id}/comment`, {
+        //     method: "DELETE",
+        // });
+        const deleteReponse = await deleteComment(id);
 
-        const deleteReponse = await fetch(`/api/videos/${id}/comment`, {
-            method: "DELETE",
-        });
+        if (deleteReponse.status === 200) {
+            path[1].remove();
+        }
     });
 });
 
@@ -60,11 +73,11 @@ if (form) {
             },
             body: JSON.stringify({text}),
         });
-
         if (postResponse.status === 201) {
             textarea.value = "";
-            const {commentId} = await postResponse.json();
-            addComment(text, commentId);
+            const {commentId, name} = await postResponse.json();
+            console.log(name);
+            addComment(text, commentId, name);
         }
     });
 }

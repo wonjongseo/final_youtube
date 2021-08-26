@@ -1,7 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
-import {async} from "regenerator-runtime";
 
 export const home = async (req, res) => {
     const videos = await Video.find({})
@@ -12,14 +11,23 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
     const {id} = req.params;
+    const {user} = req.session;
     const video = await Video.findById(id)
         .populate("owner")
-        .populate("comments");
+        .populate({
+            path: "comments",
+            populate: {
+                path: "owner",
+                model: "User",
+            },
+        });
+
+    console.log(video);
     if (!video) {
         return res.render("404", {pageTitle: "Video not found."});
     }
 
-    return res.render("watch", {pageTitle: video.title, video});
+    return res.render("watch", {pageTitle: video.title, video, user});
 };
 
 export const getEdit = async (req, res) => {
@@ -118,6 +126,7 @@ export const search = async (req, res) => {
             },
         }).populate("owner");
     }
+
     return res.render("search", {pageTitle: "Search", videos});
 };
 
@@ -140,6 +149,7 @@ export const createComment = async (req, res, next) => {
         session: {user},
     } = req;
 
+    console.log(user);
     const video = await Video.findById(id);
     if (!video) {
         return res.sendStatus(404);
@@ -150,18 +160,26 @@ export const createComment = async (req, res, next) => {
         owner: user._id,
         video: id,
     });
-
+    console.log(comment);
     video.comments.push(comment._id);
     video.save();
 
-    return res.status(201).json({commentId: comment._id});
+    return res.status(201).json({commentId: comment._id, name: user.name});
 };
 
 export const deleteComment = async (req, res, next) => {
-    const {id} = req.params;
-    console.log("asdasd");
+    const {
+        params: {id},
+        session: {user},
+    } = req;
+
+    const comment = await Comment.findById(id);
+    if (String(comment.owner) !== String(user._id)) {
+        return res.sendStatus(401);
+    }
     try {
         await Comment.findByIdAndRemove(id);
+        console.log(`${comment.text} is deleted !`);
     } catch (error) {
         console.log(error);
     }
