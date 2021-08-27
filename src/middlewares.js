@@ -12,6 +12,7 @@ const s3 = new aws.S3({
 const multerUploader = multerS3({
     s3: s3,
     bucket: "youtubejongseo",
+    acl: "public-read",
 });
 
 export const localsMiddleware = (req, res, next) => {
@@ -63,5 +64,8 @@ export const avatarUpload = multer({
 });
 export const videoUpload = multer({
     dest: "uploads/videos/",
+    limits: {
+        fileSize: 1000000000,
+    },
     storage: multerUploader,
 });

@@ -162,7 +162,7 @@ export const postEdit = async (req, res) => {
         {
             // Edit할때 file이 같이 오면 file.path 를 저장하고 그렇지 않으면
             // 세션에 있는 정보를 저장함.
-            avatarUrl: file ? file.path : avatarUrl,
+            avatarUrl: file ? file.location : avatarUrl,
             name,
             email,
             username,
