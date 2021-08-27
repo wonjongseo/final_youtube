@@ -1,16 +1,12 @@
-# Wetube Reloaded
+# YouTube
+ 
 
-/ -> Home
-/join -> Join
-/login -> Login
-/search -> Search
+## building Youtube.
 
-/users/:id -> See User
-/users/logout -> Log Out
-/users/edit -> Edit MY Profile
-/users/remove -> remove MY Profile
+# What I use
+- Express
+- Webpack
+- SCSS
+- MongoDB
 
-/videos/:id -> See Video
-/videos/:id/edit -> Edit Video
-/videos/:id/delete -> Delete Video
-/videos/upload -> Upload Video
+https://youtube-jongseo.herokuapp.com/videos/61289d6adb6933001674ad43
