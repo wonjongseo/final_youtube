@@ -157,12 +157,18 @@ export const postEdit = async (req, res) => {
         body: {name, email, username, location},
         file,
     } = req;
+
+    const isHeroku = process.env.NODE_ENV === "production";
     const updatedUser = await User.findByIdAndUpdate(
         _id,
         {
             // Edit할때 file이 같이 오면 file.path 를 저장하고 그렇지 않으면
             // 세션에 있는 정보를 저장함.
-            avatarUrl: file ? file.location : avatarUrl,
+            avatarUrl: file
+                ? isHeroku
+                    ? file.location
+                    : file.path
+                : avatarUrl,
             name,
             email,
             username,
