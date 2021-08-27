@@ -42,11 +42,6 @@ delBtn.forEach((item) => {
     item.addEventListener("click", async (event) => {
         const {path} = event;
         const id = path[1].dataset.id;
-        console.log(`path:${path}`);
-        console.log(path[1]);
-        // const deleteReponse = await fetch(`/api/videos/${id}/comment`, {
-        //     method: "DELETE",
-        // });
         const deleteReponse = await deleteComment(id);
 
         if (deleteReponse.status === 200) {

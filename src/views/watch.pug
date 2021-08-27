@@ -40,8 +40,11 @@ block content
                     div
                         i.fas.fa-comment
                             span #{loggedInUser.name}: #{comment.text}
-                    if String(loggedInUser._id) === String(comment.owner)
+                    if String(loggedInUser._id) === String(comment.owner._id)
                         button#delBtn.del__btn ❌
+                //- div
+                //-     | #{String(loggedInUser._id)}
+                //-     | #{String(comment.owner._id)}
 
 block scripts
     script(src="/static/js/videoPlayer.js")

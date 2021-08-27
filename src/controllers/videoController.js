@@ -22,7 +22,6 @@ export const watch = async (req, res) => {
             },
         });
 
-    console.log(video);
     if (!video) {
         return res.render("404", {pageTitle: "Video not found."});
     }
@@ -136,7 +135,6 @@ export const registerView = async (req, res, next) => {
     if (!video) {
         return res.sendStatus(404);
     }
-    console.log(video);
     video.meta.views = video.meta.views + 1;
     await video.save();
     return res.sendStatus(200);
@@ -149,7 +147,6 @@ export const createComment = async (req, res, next) => {
         session: {user},
     } = req;
 
-    console.log(user);
     const video = await Video.findById(id);
     if (!video) {
         return res.sendStatus(404);
@@ -160,7 +157,6 @@ export const createComment = async (req, res, next) => {
         owner: user._id,
         video: id,
     });
-    console.log(comment);
     video.comments.push(comment._id);
     video.save();
 
@@ -179,7 +175,6 @@ export const deleteComment = async (req, res, next) => {
     }
     try {
         await Comment.findByIdAndRemove(id);
-        console.log(`${comment.text} is deleted !`);
     } catch (error) {
         console.log(error);
     }

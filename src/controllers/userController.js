@@ -142,7 +142,6 @@ export const finishGithubLogin = async (req, res) => {
 export const logout = (req, res) => {
     // 세션 파괴
     req.session.destroy();
-    req.flash("info", "Bye Bye");
     return res.redirect("/");
 };
 
@@ -158,7 +157,6 @@ export const postEdit = async (req, res) => {
         body: {name, email, username, location},
         file,
     } = req;
-    console.log(file);
     const updatedUser = await User.findByIdAndUpdate(
         _id,
         {

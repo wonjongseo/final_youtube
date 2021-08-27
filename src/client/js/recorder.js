@@ -8,7 +8,6 @@ let videoFile;
 const handleDownload = async () => {
     //############### 브라우저가 아닌 컴퓨터에서 작동되는 코드 ##################
     const ffmpeg = createFFmpeg({log: true});
-    console.log("sadfasdf");
     // 사용자가 ffmpeg 소프트웨어를 사용
     await ffmpeg.load();
     //ffmpeg에 파일 생성
@@ -18,7 +17,6 @@ const handleDownload = async () => {
     await ffmpeg.run("-i", "recording.webm", "-r", "60", "output.mp4");
 
     const mp4File = ffmpeg.FS("readFile", "output.mp4");
-    console.log(mp4File);
     //######################################################
     const a = document.createElement("a");
     a.href = videoFile;
