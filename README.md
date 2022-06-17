@@ -1,6 +1,6 @@
 # YouTube
  ##### <a href="https://youtube-jongseo.herokuapp.com/">GO home page</a> 
- ##### <a href="https://youtube-jongseo.herokuapp.com/">日本語で読みたい方はこれをクリックしてください。</a>
+ ##### <a href="https://velog.io/@wonjongseo/YouTube-%E6%97%A5%E6%9C%AC%E8%AA%9E">日本語で読みたい方はこれをクリックしてください。</a>
 ## Express 와 JavaScript 를 이용한 풀스택 연습 프로젝트 
 
 
