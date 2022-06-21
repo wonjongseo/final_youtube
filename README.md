@@ -133,7 +133,7 @@ mongoose
   -　ログイン  <br/>
   -　Githubを通じてログイン
 
-	</details>
+</details>
   </h3>
 
 
