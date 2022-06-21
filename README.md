@@ -1,14 +1,14 @@
-# YouTube
- ##### <a href="https://youtube-jongseo.herokuapp.com/">GO home page</a> 
- ##### <a href="https://velog.io/@wonjongseo/YouTube-%E6%97%A5%E6%9C%AC%E8%AA%9E">日本語でご覧になりたい方はこちらをクリックしてください。</a>
- 
-## Express 와 JavaScript 를 이용한 풀스택 연습 프로젝트 
+#### <a href="https://youtube-jongseo.herokuapp.com/">JongTube home page <-</a> 
+
+# ExpressとJavaScriptを利用したシンプルプロジェクト
 
 
+## 💻Development Environment
+  <hr/>
+  
+  
 
-
-# 💻Development Environment
-## Back-End
+  ### Back-End
 <ul>
   <li>
     NodeJS
@@ -24,76 +24,143 @@ mongoose
  </li>
 </ul>
 
-## Front-End
+### Front-End
 <ul>
   <li>
-    pug
+	javaScript   
   </li>
 	 <li>
-	javaScript
+        pug
+
  </li>
  <li>
 	Scss
  </li>
-  </ul>
+</ul>
+  
   
   
 
-# 주요기능 
+  
+  
+  ## 📃  Dependencies
+  <hr/>
+  <h3>
+	<details>
+	  <summary >詳細に見る</summary>
+
+ ![](https://velog.velcdn.com/images/wonjongseo/post/be205488-e7ce-499c-9304-32d8fd44a99a/image.png)
+
+
+  </details>
+    </h3>
+	 
+
+      
+
+
+
+  
+
+    
+  ## 🌀  API 明細書
+  <hr/>
+  
+  
+
+  
+  ### <a href="https://woolly-clownfish-678.notion.site/57c620cb4b9849f8afa183b8ef9429fa?v=0d5521770e9f42e694c36ba23df189fb" target="_blank"> API明細書を見に行く </a>
+
+  
+  
+  ## Database Schema 
+  <hr/>
+  <h3>
+	<details>
+	  <summary >詳細に見る</summary>
+
+
+
+## USER SCHEMA
+  ![](https://velog.velcdn.com/images/wonjongseo/post/893cff8c-45e3-4fb2-a3bf-cc1f433b81a3/image.png)
+  
+## VIDEO SCHEMA
+  
+  ![](https://velog.velcdn.com/images/wonjongseo/post/9377e246-99d8-49a8-ad4e-a27198c60e01/image.png)
+
+  
+## COMMENT SCHEMA
+  ![](https://velog.velcdn.com/images/wonjongseo/post/7cfc62bd-b874-459c-80eb-618188702135/image.png)
+
+  </details>
+    </h3>
+
+  
+  # 主要機能
+<hr/>
 
 
 ## Home page
-![](https://velog.velcdn.com/images/wonjongseo/post/bdbc5d44-2770-4b5b-953f-e825db0820d8/image.png)
+![](https://velog.velcdn.com/images/wonjongseo/post/b101a54c-6b3f-45ff-883f-1536bbb0909c/image.png)
 
+<h3>
 <details>
-  <summary>기능 설명 </summary>
-- 구글의 유튜브와 최대한 비슷하게 디자인 함. <br/>
-- 상단에 영상 검색과, 로그인, 회원가입 네비게이션
-  
-  </details>
+  <summary>機能説明 </summary>
 
+- グーグルのユーチューブと最大に似るようにデザインしました。<br/>
+- 上段に映像検索とログイン、会員登録ナビゲーションがあります。
+  </details>
+<h3/>
 
 ## Join Page
 
 ![](https://velog.velcdn.com/images/wonjongseo/post/f52ca599-3da3-4955-a482-5bca42dd02e3/image.png)
-
-<details>
-  <summary>기능 설명 </summary>
-- 홈페이지에서 회원가입 할 수 있음  <br/>
-- github 를 통해 회원가입을 할 수 있음.
+<h3>
+	<details>
+  	<summary>機能説明 </summary>
+ -　ホームベージで会員加入ができる<br/>
+ -　Githubを通じて会員加入ができる
   
   </details>
+</h3>
 
 ## Login Page
 
 ![](https://velog.velcdn.com/images/wonjongseo/post/11e7dfa9-4024-4550-a306-ca87c50429ff/image.png)
-<details>
-  <summary>기능 설명 </summary>
-- 로그인 <br/>
-  - github를 통한 로그인
-</details>
+<h3>
+	<details>
+	  <summary>機能説明 </summary>
+  -　ログイン  <br/>
+  -　Githubを通じてログイン
+
+	</details>
+  </h3>
 
 
 
 ## Edit video
 
 ![](https://velog.velcdn.com/images/wonjongseo/post/7e9cebfc-5b1e-4c79-be1e-c28e12ed40a0/image.png)
-<details>
-  <summary>기능 설명 </summary>
-- 동영상 업로드 <br/>
- - 동영상 촬영
-</details>
-  
+
+<h3>
+  <details>
+    <summary>機能説明 </summary>
+  -   動画を登録 <br/>
+   -   動画を撮影
+  </details>
+  </h3>  
 
 
 ## Detail Video
 
   ![](https://velog.velcdn.com/images/wonjongseo/post/4d770669-3948-4c52-af8f-694db89dcbc1/image.png)
-  
+ <h3> 
   <details>
-  <summary>기능 설명 </summary>
-- 동영상 재생 <br/>
-- 커맨트 
+  <summary>機能説明 </summary>
+  - 動画を再生　 <br/>
+ - コメントを登録
 </details>
-
+  </h3>
+  
+  
   
