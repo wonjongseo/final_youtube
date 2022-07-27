@@ -1,6 +1,6 @@
 #### <a href="https://youtube-jongseo.herokuapp.com/">JongTube home page <-</a> 
 
-# ExpressとJavaScriptを利用したシンプルプロジェクト
+# ExpressとPugを利用したシンプルプロジェクト
 
 
 ## 💻Development Environment
